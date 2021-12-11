@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 
 const kYellow = Color(0xFFFECE2F);
 
+const kBoxDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(30.0),
+      topRight: Radius.circular(30.0)),
+);
+
 const kTextFieldDecoration = InputDecoration(
   hintText: '',
   hintStyle: TextStyle(

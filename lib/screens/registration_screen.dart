@@ -2,6 +2,7 @@ import 'package:construto/screens/registration_screen2.dart';
 import 'package:construto/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     name = value;
                   },
                   decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter your full name',
+                      hintText: 'Enter your name',
                       prefixIcon: const Icon(Icons.edit)),
                 ),
                 const SizedBox(
