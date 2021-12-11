@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1043991239424",
+    "project_id": "construto-230cd",
+    "storage_bucket": "construto-230cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043991239424:android:a50d9123d137d00c6131e5",
+        "android_client_info": {
+          "package_name": "com.example.construto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043991239424-nb4rr8mld68u0khch52uhq4v4tjn1s1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2EhrekQ6KruADivyOvuFuRtcPvk54GOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043991239424-nb4rr8mld68u0khch52uhq4v4tjn1s1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
