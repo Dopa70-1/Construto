@@ -1,12 +1,9 @@
 import 'package:construto/screens/registration_screen2.dart';
 import 'package:construto/widgets/my_button.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  static const String id = 'registration_screen';
   const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
@@ -14,6 +11,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  late String name;
+  late String email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +41,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 TextField(
                   style: const TextStyle(color: Colors.black54),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    name = value;
+                  },
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your full name',
                       prefixIcon: const Icon(Icons.edit)),
@@ -51,7 +54,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 TextField(
                   keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(color: Colors.black54),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    email = value;
+                  },
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your email',
                       prefixIcon: const Icon(Icons.email)),
@@ -59,7 +64,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 const SizedBox(
                   height: 30.0,
                 ),
-                MyButton(colour: kYellow, text: 'Next', onPress: (){Navigator.pushNamed(context, RegistrationScreen2.id);}),
+                MyButton(colour: kYellow, text: 'Next', onPress: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RegistrationScreen2(name, email);
+                  }));
+                }),
                 const SizedBox(
                   height: 15.0,
                 ),

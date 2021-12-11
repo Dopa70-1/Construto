@@ -5,7 +5,6 @@ import 'package:construto/constants.dart';
 import 'login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  static const String id = 'welcome_screen';
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -28,7 +27,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            MyButton(colour: kYellow, text: 'Create an account', onPress: () {Navigator.pushNamed(context, RegistrationScreen.id);}),
+            MyButton(colour: kYellow, text: 'Create an account', onPress: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const RegistrationScreen();
+              }));
+            }),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               const Text(
                 "Already have an account?",
@@ -39,7 +42,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, LoginScreen.id);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const LoginScreen();
+                  }));
                 },
                 child: const Text(
                   'click here.',

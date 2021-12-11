@@ -1,10 +1,11 @@
 import 'package:construto/widgets/my_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const String id = 'login_screen';
 
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -13,6 +14,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(color: Colors.black54),
-                  onChanged: (value) {},
+                  onChanged: (value) {email = value;},
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your email',
                       prefixIcon: const Icon(Icons.email)),
@@ -57,12 +63,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   style: const TextStyle(color: Colors.black54),
                   obscureText: true,
-                  onChanged: (value) {},
+                  onChanged: (value) {password = value;},
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your password',
                   prefixIcon: const Icon(Icons.password)),
                 ),
-                MyButton(colour: kYellow, text: 'Login', onPress: (){}),
+                MyButton(colour: kYellow, text: 'Login', onPress: () async{
+                  try{
+                    await _auth.signInWithEmailAndPassword(email: email, password: password);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return const HomePage();
+                    }));
+                  }
+                  catch(e){
+                    print(e);
+                  }
+                }),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   const Text(
                     "Go to Homepage. ",

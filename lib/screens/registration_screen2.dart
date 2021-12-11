@@ -1,17 +1,26 @@
+import 'package:construto/screens/home_screen.dart';
 import 'package:construto/widgets/my_button.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../constants.dart';
 
 class RegistrationScreen2 extends StatefulWidget {
-  static const String id = 'registration_screen2';
-  const RegistrationScreen2({Key? key}) : super(key: key);
+
+  final String name;
+  final String email;
+
+  RegistrationScreen2(this.name, this.email);
 
   @override
   _RegistrationScreen2State createState() => _RegistrationScreen2State();
 }
 
 class _RegistrationScreen2State extends State<RegistrationScreen2> {
+
+  final _auth = FirebaseAuth.instance;
+  late String password;
+  late String cnfmPassword;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +48,9 @@ class _RegistrationScreen2State extends State<RegistrationScreen2> {
                 TextField(
                   obscureText: true,
                   style: const TextStyle(color: Colors.black54),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    password = value;
+                  },
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your password',
                       prefixIcon: const Icon(Icons.password)),
@@ -50,7 +61,9 @@ class _RegistrationScreen2State extends State<RegistrationScreen2> {
                 TextField(
                   obscureText: true,
                   style: const TextStyle(color: Colors.black54),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    cnfmPassword = value;
+                  },
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Confirm password',
                       prefixIcon: const Icon(Icons.security)),
@@ -58,7 +71,19 @@ class _RegistrationScreen2State extends State<RegistrationScreen2> {
                 const SizedBox(
                   height: 30.0,
                 ),
-                MyButton(colour: kYellow, text: 'Register', onPress: (){}),
+                MyButton(colour: kYellow, text: 'Register', onPress: () async{
+                  if(password==cnfmPassword){
+                    try{
+                      final newUser = await _auth.createUserWithEmailAndPassword(email: widget.email, password: password);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return const HomePage();
+                      }));
+                    }
+                    catch(e){
+                      print(e);
+                    }
+                  }
+                }),
                 const SizedBox(
                   height: 15.0,
                 ),
