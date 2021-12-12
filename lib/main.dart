@@ -22,6 +22,7 @@ class Construto extends StatelessWidget {
     ]);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        title: 'Constructo',
         home: WelcomeScreen(),
     );
   }
