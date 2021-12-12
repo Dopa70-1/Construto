@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: kYellow,
         elevation: 0,
       ),
-      drawer: Drawer(),
       backgroundColor: kYellow,
       floatingActionButton: FloatingActionButton(
         foregroundColor: Colors.black,

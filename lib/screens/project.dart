@@ -3,6 +3,7 @@
 import 'package:construto/constants.dart';
 import 'package:construto/screens/projectTabs/demand.dart';
 import 'package:construto/screens/projectTabs/document.dart';
+import 'package:construto/screens/projectTabs/rule.dart';
 import 'package:construto/screens/projectTabs/team.dart';
 import 'package:construto/screens/projectTabs/trade.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,7 +38,7 @@ class _ProjectState extends State<Project> {
         Demand(widget.email, widget.projectName),
         Document(widget.email, widget.projectName),
         Team(widget.projectName),
-        Demand(widget.email, widget.projectName),
+        Rules(),
       ]);
     }
     else{
@@ -45,7 +46,7 @@ class _ProjectState extends State<Project> {
         Trade(widget.projectName),
         Demand(widget.email, widget.projectName),
         Document(widget.email, widget.projectName),
-        Demand(widget.email, widget.projectName),
+        Rules(),
       ]);
     }
   }
