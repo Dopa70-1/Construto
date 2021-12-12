@@ -181,6 +181,7 @@ class _DemandState extends State<Demand> {
                             return Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: Card(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                                 elevation: 10,
                                 child: ListTile(
                                   title: Text(

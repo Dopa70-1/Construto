@@ -221,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           : "")
                                       : "",
                                   ),
-                                  trailing: IconButton(
+                                  trailing: documentSnapshot["email"]==email?IconButton(
                                     icon: const Icon(Icons.delete),
                                     color: Colors.red,
                                     onPressed: () {
@@ -231,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             : "");
                                       });
                                     },
-                                  ),
+                                  ):null,
                                   onTap: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {

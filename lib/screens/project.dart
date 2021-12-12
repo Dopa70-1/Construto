@@ -99,7 +99,6 @@ class _ProjectState extends State<Project> {
       length: 4,
       initialIndex: 0,
       child: Scaffold(
-        // drawer: Drawer(),
         appBar: AppBar(
           elevation: 0,
           shadowColor: kYellow,
@@ -112,11 +111,8 @@ class _ProjectState extends State<Project> {
           bottom: TabBar(
             isScrollable: true,
             indicatorColor: Colors.black,
-            unselectedLabelColor: Colors.black,
-            indicator: BoxDecoration(
-              color: Colors.white30,
-            ),
-            // labelColor: Colors.white,
+            unselectedLabelColor: Colors.black54,
+            labelColor: Colors.black,
             tabs: tablist,
           ),
         ),

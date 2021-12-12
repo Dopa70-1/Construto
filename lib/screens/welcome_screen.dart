@@ -55,7 +55,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               )
             ]),
-            Expanded(child: Image.asset('images/macaroni-road.png')),
+            Padding(
+              padding: EdgeInsets.only(top: 50.0),
+              child: Text(
+                'CREATED BY DOPA70-1',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  letterSpacing: 5,
+                  color: Colors.grey,
+                  fontSize: 20.0
+                ),
+              ),
+            )
           ],
         ),
       ),

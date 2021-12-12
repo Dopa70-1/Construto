@@ -88,6 +88,7 @@ class _DocumentState extends State<Document> {
                             return Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: Card(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                                 elevation: 10,
                                 child: ListTile(
                                   shape: RoundedRectangleBorder(
@@ -100,7 +101,7 @@ class _DocumentState extends State<Document> {
                                           ? documentSnapshot["Name"]
                                           : "")
                                       : ""),
-                                  trailing: IconButton(
+                                  trailing: _auth.currentUser!.email==widget.email?IconButton(
                                     icon: const Icon(Icons.delete),
                                     color: Colors.red,
                                     onPressed: () {
@@ -109,7 +110,7 @@ class _DocumentState extends State<Document> {
                                         delete(id, documentSnapshot["Name"]);
                                       });
                                     },
-                                  ),
+                                  ):null,
                                   onTap: () async {
                                     await launch(documentSnapshot["ImageURL"]);
                                   },
