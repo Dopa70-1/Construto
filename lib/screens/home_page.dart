@@ -55,11 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: kYellow,
-        elevation: 0,
-      ),
       backgroundColor: kYellow,
       floatingActionButton: FloatingActionButton(
         foregroundColor: Colors.black,
@@ -157,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
           padding: const EdgeInsetsDirectional.only(
-              top: 0.0, bottom: 30.0, end: 30.0, start: 30.0),
+              top: 100.0, bottom: 30.0, end: 30.0, start: 30.0),
           child: Column(children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,56 +188,53 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (snapshot.hasError) {
                   return Text('Something went wrong');
                 } else if (snapshot.hasData || snapshot.data != null) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data?.docs.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          QueryDocumentSnapshot<Object?>? documentSnapshot =
-                              snapshot.data?.docs[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Card(
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        QueryDocumentSnapshot<Object?>? documentSnapshot =
+                            snapshot.data?.docs[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                            elevation: 10,
+                            child: ListTileTheme(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                              elevation: 10,
-                              child: ListTileTheme(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                tileColor: documentSnapshot!["email"]==email ? kYellow: Colors.white,
-                                child: ListTile(
-                                  title: Text((documentSnapshot != null)
-                                      ? (documentSnapshot["projectName"])
-                                      : "",),
-                                  subtitle: Text((documentSnapshot != null)
-                                      ? ((documentSnapshot["projectTitle"] !=
-                                              null)
-                                          ? documentSnapshot["projectTitle"]
-                                          : "")
-                                      : "",
-                                  ),
-                                  trailing: documentSnapshot["email"]==email?IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    color: Colors.red,
-                                    onPressed: () {
-                                      setState(() {
-                                        deleteTodo((documentSnapshot != null)
-                                            ? (documentSnapshot["projectName"])
-                                            : "");
-                                      });
-                                    },
-                                  ):null,
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return Project(documentSnapshot["email"], documentSnapshot["projectName"]);
-                                    }));
-                                  },
+                              tileColor: documentSnapshot!["email"]==email ? kYellow: Colors.white,
+                              child: ListTile(
+                                title: Text((documentSnapshot != null)
+                                    ? (documentSnapshot["projectName"])
+                                    : "",),
+                                subtitle: Text((documentSnapshot != null)
+                                    ? ((documentSnapshot["projectTitle"] !=
+                                            null)
+                                        ? documentSnapshot["projectTitle"]
+                                        : "")
+                                    : "",
                                 ),
+                                trailing: documentSnapshot["email"]==email?IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  color: Colors.red,
+                                  onPressed: () {
+                                    setState(() {
+                                      deleteTodo((documentSnapshot != null)
+                                          ? (documentSnapshot["projectName"])
+                                          : "");
+                                    });
+                                  },
+                                ):null,
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Project(documentSnapshot["email"], documentSnapshot["projectName"]);
+                                  }));
+                                },
                               ),
                             ),
-                          );
-                        }),
-                  );
+                          ),
+                        );
+                      });
                 }
                 return const Center(
                   child: CircularProgressIndicator(

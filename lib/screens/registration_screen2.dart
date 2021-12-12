@@ -2,6 +2,7 @@ import 'package:construto/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../constants.dart';
 
 import 'home_page.dart';
@@ -94,12 +95,48 @@ class _RegistrationScreen2State extends State<RegistrationScreen2> {
                                 MaterialPageRoute(builder: (context) {
                               return MyHomePage();
                             }));
+                          } catch (e) {
+                            Alert(
+                              context: context,
+                              type: AlertType.error,
+                              title: "ERROR!!",
+                              desc: e.toString().split(']').last,
+                              buttons: [
+                                DialogButton(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  width: 120,
+                                )
+                              ],
+                            ).show();
                             setState(() {
                               showSpinner = false;
                             });
-                          } catch (e) {
-                            print(e);
                           }
+                        }
+                        else{
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "ERROR!!",
+                            desc: 'password and confirm password is not matching',
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "OK",
+                                  style: TextStyle(color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                width: 120,
+                              )
+                            ],
+                          ).show();
+                          setState(() {
+                            showSpinner = false;
+                          });
                         }
                       }),
                   const SizedBox(

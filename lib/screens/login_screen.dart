@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../constants.dart';
 import 'package:construto/screens/home_page.dart';
 
@@ -93,7 +94,25 @@ class _LoginScreenState extends State<LoginScreen> {
                             showSpinner = false;
                           });
                         } catch (e) {
-                          print(e);
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "ERROR!!",
+                            desc: e.toString().split(']').last,
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "OK",
+                                  style: TextStyle(color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                width: 120,
+                              )
+                            ],
+                          ).show();
+                          setState(() {
+                            showSpinner = false;
+                          });
                         }
                       }),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [

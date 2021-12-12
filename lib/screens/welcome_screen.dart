@@ -15,7 +15,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.only(top: 30.0,left: 30.0,right: 30.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -55,18 +55,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               )
             ]),
-            Padding(
-              padding: EdgeInsets.only(top: 50.0),
-              child: Text(
-                'CREATED BY DOPA70-1',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  letterSpacing: 5,
-                  color: Colors.grey,
-                  fontSize: 20.0
-                ),
-              ),
-            )
+            Expanded(child: Image.asset('images/pngegg.png',
+                color: const Color.fromRGBO(255, 255, 255, 0.8),
+                colorBlendMode: BlendMode.modulate)),
           ],
         ),
       ),
