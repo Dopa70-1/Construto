@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:construto/screens/project.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
 
 class MyHomePage extends StatefulWidget {
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -29,8 +31,8 @@ class _MyHomePageState extends State<MyHomePage> {
         FirebaseFirestore.instance.collection("MyTodos").doc(title);
 
     Map<String, String> todoList = {
-      "todoTitle": title,
-      "todoDesc": description
+      "projectName": title,
+      "projectTitle": description
     };
 
     documentReference
@@ -50,6 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: kYellow,
+        elevation: 0,
+      ),
+      drawer: Drawer(),
       backgroundColor: kYellow,
       floatingActionButton: FloatingActionButton(
         foregroundColor: Colors.black,
@@ -147,41 +155,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
           padding: const EdgeInsetsDirectional.only(
-              top: 60.0, bottom: 30.0, end: 30.0, start: 30.0),
+              top: 0.0, bottom: 30.0, end: 30.0, start: 30.0),
           child: Column(children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        child: TextButton(
-                          onPressed: () {
-                            //Add drawer
-                          },
-                          child: const Icon(
-                            Icons.supervised_user_circle_rounded,
-                            size: 45.0,
-                            color: kYellow,
-                          ),
-                        ),
-                        radius: 30.0,
-                        backgroundColor: Colors.blueGrey.shade900,
-                      ),
-                      const CircleAvatar(
-                        child: Icon(
-                          Icons.explore,
-                          size: 30.0,
-                          color: Colors.white,
-                        ),
-                        radius: 20.0,
-                        backgroundColor: Colors.teal,
-                      ),
-                    ]),
-                const SizedBox(
-                  height: 25.0,
-                ),
                 Text(
                   'Hi ${_auth.currentUser!.displayName}',
                   style: GoogleFonts.dancingScript(
@@ -213,23 +191,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (snapshot.hasError) {
                   return Text('Something went wrong');
                 } else if (snapshot.hasData || snapshot.data != null) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data?.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        QueryDocumentSnapshot<Object?>? documentSnapshot =
-                            snapshot.data?.docs[index];
-                        return Dismissible(
-                            key: Key(index.toString()),
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          QueryDocumentSnapshot<Object?>? documentSnapshot =
+                              snapshot.data?.docs[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 10),
                             child: Card(
-                              elevation: 4,
+                              elevation: 20,
                               child: ListTile(
                                 title: Text((documentSnapshot != null)
-                                    ? (documentSnapshot["todoTitle"])
+                                    ? (documentSnapshot["projectName"])
                                     : ""),
                                 subtitle: Text((documentSnapshot != null)
-                                    ? ((documentSnapshot["todoDesc"] != null)
-                                        ? documentSnapshot["todoDesc"]
+                                    ? ((documentSnapshot["projectTitle"] !=
+                                            null)
+                                        ? documentSnapshot["projectTitle"]
                                         : "")
                                     : ""),
                                 trailing: IconButton(
@@ -238,14 +219,22 @@ class _MyHomePageState extends State<MyHomePage> {
                                   onPressed: () {
                                     setState(() {
                                       deleteTodo((documentSnapshot != null)
-                                          ? (documentSnapshot["todoTitle"])
+                                          ? (documentSnapshot["projectName"])
                                           : "");
                                     });
                                   },
                                 ),
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Project();
+                                  }));
+                                },
                               ),
-                            ));
-                      });
+                            ),
+                          );
+                        }),
+                  );
                 }
                 return const Center(
                   child: CircularProgressIndicator(

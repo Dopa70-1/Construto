@@ -1,13 +1,12 @@
 import 'package:construto/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../constants.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import 'home_page.dart';
 
 class RegistrationScreen2 extends StatefulWidget {
-
   final String name;
   final String email;
 
@@ -18,7 +17,6 @@ class RegistrationScreen2 extends StatefulWidget {
 }
 
 class _RegistrationScreen2State extends State<RegistrationScreen2> {
-
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   late String password;
@@ -32,7 +30,8 @@ class _RegistrationScreen2State extends State<RegistrationScreen2> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage('images/urban-skyscrapers-background.png'),
+              image:
+                  const AssetImage('images/urban-skyscrapers-background.png'),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                   Colors.white.withOpacity(0.8), BlendMode.dstATop),
@@ -41,8 +40,7 @@ class _RegistrationScreen2State extends State<RegistrationScreen2> {
           constraints: const BoxConstraints.expand(),
           child: SafeArea(
             child: Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 30.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -76,48 +74,56 @@ class _RegistrationScreen2State extends State<RegistrationScreen2> {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  MyButton(colour: kYellow, text: 'Register', onPress: () async{
-                    setState(() {
-                      showSpinner = true;
-                    });
-                    if(password==cnfmPassword){
-                      try{
-                        UserCredential result = await _auth.createUserWithEmailAndPassword(email: widget.email, password: password);
-                        User? user = result.user;
-                        user!.updateDisplayName(widget.name);
-                        await user.reload();
-                        await _auth.currentUser!;
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return MyHomePage();
-                        }));
+                  MyButton(
+                      colour: kYellow,
+                      text: 'Register',
+                      onPress: () async {
                         setState(() {
-                          showSpinner = false;
+                          showSpinner = true;
                         });
-                      }
-                      catch(e){
-                        print(e);
-                      }
-                    }
-                  }),
+                        if (password == cnfmPassword) {
+                          try {
+                            UserCredential result =
+                                await _auth.createUserWithEmailAndPassword(
+                                    email: widget.email, password: password);
+                            User? user = result.user;
+                            user!.updateDisplayName(widget.name);
+                            await user.reload();
+                            await _auth.currentUser!;
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return MyHomePage();
+                            }));
+                            setState(() {
+                              showSpinner = false;
+                            });
+                          } catch (e) {
+                            print(e);
+                          }
+                        }
+                      }),
                   const SizedBox(
                     height: 15.0,
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                    }, child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.arrow_back, color: Colors.blue.shade900, size: 15,),
-                      Text(
-                        'Go back',
-                        style: TextStyle(
-                            color: Colors.blue.shade900,
-                            fontSize: 15.0
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.arrow_back,
+                          color: Colors.blue.shade900,
+                          size: 15,
                         ),
-                      )
-                    ],
-                  ),
+                        Text(
+                          'Go back',
+                          style: TextStyle(
+                              color: Colors.blue.shade900, fontSize: 15.0),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
