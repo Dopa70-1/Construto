@@ -40,6 +40,11 @@ dependencies:
   google_fonts: ^2.1.0
   rflutter_alert: ^2.0.4
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
+  file_picker: ^4.2.7
+  open_file: ^3.2.1
+  path_provider: ^2.0.8
+  url_launcher: ^6.0.17
+  firebase_storage: ^10.2.3
 
 dev_dependencies:
   flutter_test:

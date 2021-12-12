@@ -19,11 +19,13 @@ class _MyHomePageState extends State<MyHomePage> {
   List todos = List.empty();
   String title = "";
   String description = "";
+  String email = "";
 
   @override
   void initState() {
     super.initState();
     todos = ["Hello", "Hey There"];
+    email = _auth.currentUser!.email!;
   }
 
   createToDo() {
@@ -32,7 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Map<String, String> todoList = {
       "projectName": title,
-      "projectTitle": description
+      "projectTitle": description,
+      "email": email
     };
 
     documentReference
@@ -202,34 +205,40 @@ class _MyHomePageState extends State<MyHomePage> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Card(
-                              elevation: 20,
-                              child: ListTile(
-                                title: Text((documentSnapshot != null)
-                                    ? (documentSnapshot["projectName"])
-                                    : ""),
-                                subtitle: Text((documentSnapshot != null)
-                                    ? ((documentSnapshot["projectTitle"] !=
-                                            null)
-                                        ? documentSnapshot["projectTitle"]
-                                        : "")
-                                    : ""),
-                                trailing: IconButton(
-                                  icon: const Icon(Icons.delete),
-                                  color: Colors.red,
-                                  onPressed: () {
-                                    setState(() {
-                                      deleteTodo((documentSnapshot != null)
-                                          ? (documentSnapshot["projectName"])
-                                          : "");
-                                    });
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                              elevation: 10,
+                              child: ListTileTheme(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                tileColor: documentSnapshot!["email"]==email ? kYellow: Colors.white,
+                                child: ListTile(
+                                  title: Text((documentSnapshot != null)
+                                      ? (documentSnapshot["projectName"])
+                                      : "",),
+                                  subtitle: Text((documentSnapshot != null)
+                                      ? ((documentSnapshot["projectTitle"] !=
+                                              null)
+                                          ? documentSnapshot["projectTitle"]
+                                          : "")
+                                      : "",
+                                  ),
+                                  trailing: IconButton(
+                                    icon: const Icon(Icons.delete),
+                                    color: Colors.red,
+                                    onPressed: () {
+                                      setState(() {
+                                        deleteTodo((documentSnapshot != null)
+                                            ? (documentSnapshot["projectName"])
+                                            : "");
+                                      });
+                                    },
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return Project(documentSnapshot["email"], documentSnapshot["projectName"]);
+                                    }));
                                   },
                                 ),
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return Project();
-                                  }));
-                                },
                               ),
                             ),
                           );
